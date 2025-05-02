@@ -22,6 +22,31 @@
             text-align: center;
             font-size: 18px;
             font-weight: bold;
+            position: relative;
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .language-selector button {
+            background: #fff;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .language-selector button:hover {
+            background: #4CAF50;
+            color: #fff;
         }
 
         section {
@@ -103,16 +128,23 @@
 </head>
 <body>
 
-    <header>Evaluation of Prototype</header>
+    <header>
+        Evaluation of Prototype
+        <div class="language-selector">
+            <button onclick="setLanguage('en')">English</button>
+            <button onclick="setLanguage('ps')">پښتو (Pashto)</button>
+            <button onclick="setLanguage('ar')">العربية (Arabic)</button>
+        </div>
+    </header>
 
-    <section>
+    <section id="content">
         <p><strong>Prototyping</strong> means creating a model to test a concept or process. It can be made from cheap materials like paper, cardboard, or styrofoam. This helps test ideas without wasting materials or adding costs.</p>
         <p>During the prototyping lesson for our pencil topper design, we tested:</p>
         <ul>
             <li>If the gap fits securely on a pencil.</li>
             <li>If the shape is too complex to cut.</li>
-            <li>If the size is practical.</li>
-            <li>If it looks good on a pencil.</li>
+            <li>If the size is not too big or small.</li>
+            <li>If the shape looks good on a pencil.</li>
         </ul>
         <p><strong>Homework:</strong> Answer the evaluation questions in your DT book using full sentences.</p>
     </section>
@@ -140,14 +172,89 @@
 
     <section class="questions">
         <h2>Evaluation Questions</h2>
-        <ol>
+        <ol id="questions-list">
             <li><strong>What did you do in the lesson?</strong> <br>Describe the steps to make our prototype.</li>
             <li><strong>What was easy or difficult?</strong> <br>Reflect on your challenges and how you solved them.</li>
-            <li><strong>What tools did you use?</strong> <br>How to ensure safety? </li>
+            <li><strong>What tools did you use?</strong> <br>How to ensure safety?</li>
             <li><strong>What would you do differently?</strong> <br>Think about improvements you’d make next time.</li>
             <li><strong>What should you remember?</strong> <br>Identify key considerations for making your pencil topper.</li>
         </ol>
     </section>
+
+    <script>
+        const translations = {
+            en: {
+                header: "Evaluation of Prototype",
+                content: `<p><strong>Prototyping</strong> means creating a model to test a concept or process. It can be made from cheap materials like paper, cardboard, or styrofoam. This helps test ideas without wasting materials or adding costs.</p>
+                <p>During the prototyping lesson for our pencil topper design, we tested:</p>
+                <ul>
+                    <li>If the gap fits securely on a pencil.</li>
+                    <li>If the shape is too complex to cut.</li>
+                    <li>If the size is not too big or small.</li>
+                    <li>If the shape looks good on a pencil.</li>
+                </ul>
+                <p><strong>Homework:</strong> Answer the evaluation questions in your DT book using full sentences.</p>`,
+                questions: [
+                    "What did you do in the lesson? Describe the steps to make our prototype.",
+                    "What was easy or difficult? Reflect on your challenges and how you solved them.",
+                    "What tools did you use? How to ensure safety?",
+                    "What would you do differently? Think about improvements you’d make next time.",
+                    "What should you remember? Identify key considerations for making your pencil topper."
+                ]
+            },
+            ps: {
+                header: "د پروټوټایپ ارزونه",
+                content: `<p><strong>پروټوټایپ جوړول</strong> د یو نظر یا پروسې د ازموینې لپاره د ماډل جوړولو معنی لري. دا د کاغذ، کارت بورډ، یا سټایروفوم په څیر له ارزانه توکو څخه جوړ کیدی شي. دا د موادو د ضایع کیدو او لګښتونو څخه مخنیوی کې مرسته کوي.</p>
+                <p>د پنسل ټاپر ډیزاین په پروټوټایپ کې، موږ دا ازمول:</p>
+                <ul>
+                    <li>که چیرې واټن په پنسل کې په خوندي ډول فټ کړي.</li>
+                    <li>که چیرې شکل پرې کول ډیر پیچلي وي.</li>
+                    <li>که چیرې اندازه نه ډیره لویه وي او نه ډیره وړه وي.</li>
+                    <li>که دا په پنسل ښه ښکاري.</li>
+                </ul>
+                <p><strong>کورنی کار:</strong> د خپل ډی ټي کتاب کې د بشپړ جملو په کارولو سره د ارزونې پوښتنو ته ځواب ورکړئ.</p>`,
+                questions: [
+                    "تاسو په درس کې څه وکړل؟ د پروټوټایپ جوړولو مرحلې تشریح کړئ.",
+                    "څه اسانه یا سخت وو؟ په خپلو ستونزو غور وکړئ او څنګه یې حل کړ.",
+                    "تاسو کوم وسایل وکارول؟ د خوندیتوب څرنګوالی.",
+                    "تاسو به په بل ځل څه توپیر وکړئ؟ د ښه والي په اړه فکر وکړئ.",
+                    "تاسو باید څه په یاد ولرئ؟ د پنسل ټاپر جوړولو لپاره مهم ټکي په ګوته کړئ."
+                ]
+            },
+            ar: {
+                header: "تقييم النموذج الأولي",
+                content: `<p><strong>النموذج الأولي</strong> يعني إنشاء نموذج لاختبار فكرة أو عملية. يمكن صنعه من مواد رخيصة مثل الورق أو الكرتون أو الستايروفوم. يساعد ذلك على اختبار الأفكار دون إهدار المواد أو زيادة التكاليف.</p>
+                <p>في درس النموذج الأولي لتصميم ممحاة القلم، قمنا باختبار:</p>
+                <ul>
+                    <li>ما إذا كانت الفجوة تثبت بإحكام على القلم.</li>
+                    <li>ما إذا كان الشكل معقدًا جدًا للقطع.</li>
+                    <li>ما إذا كان الحجم ليس كبيرًا جدًا أو صغيرًا جدًا.</li>
+                    <li>ما إذا كان الشكل يبدو جيدًا على القلم.</li>
+                </ul>
+                <p><strong>الواجب المنزلي:</strong> أجب عن أسئلة التقييم في كتاب DT الخاص بك باستخدام جمل كاملة.</p>`,
+                questions: [
+                    "ماذا فعلت في الدرس؟ صف الخطوات لتصميم النموذج الأولي.",
+                    "ما الذي كان سهلاً أو صعباً؟ فكر في التحديات وكيف تغلبت عليها.",
+                    "ما الأدوات التي استخدمتها؟ وكيف تضمن السلامة؟",
+                    "ماذا ستفعل بشكل مختلف في المرة القادمة؟ فكر في التحسينات.",
+                    "ما الذي يجب أن تتذكره؟ حدد الاعتبارات الرئيسية لتصميم ممحاة القلم."
+                ]
+            }
+        };
+
+        function setLanguage(lang) {
+            document.querySelector("header").textContent = translations[lang].header;
+            document.querySelector("#content").innerHTML = translations[lang].content;
+
+            const questionsList = document.querySelector("#questions-list");
+            questionsList.innerHTML = "";
+            translations[lang].questions.forEach(question => {
+                const li = document.createElement("li");
+                li.textContent = question;
+                questionsList.appendChild(li);
+            });
+        }
+    </script>
 
 </body>
 </html>
