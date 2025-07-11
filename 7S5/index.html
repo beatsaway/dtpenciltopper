@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7S5 Pencil Topper Album</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8f8f8;
+      min-height: 100vh;
+      color: #333;
+      line-height: 1.4;
+    }
+    .header {
+      background: #fff;
+      padding: 20px 16px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .header h1 {
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-weight: 300;
+      text-align: center;
+      color: #2a2a2a;
+      letter-spacing: 0.3px;
+    }
+    .album-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+    .left-image {
+      flex: 1 1 450px;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      border: 1px solid #f5f5f5;
+      position: sticky;
+      top: 20px;
+    }
+    .left-image img {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #fff;
+      transition: transform 0.2s ease;
+    }
+    .left-image img:hover {
+      transform: scale(1.01);
+    }
+    .left-image .caption {
+      margin-top: 16px;
+      font-size: 0.95rem;
+      color: #666;
+      text-align: center;
+      font-weight: 300;
+    }
+    .right-thumbs {
+      flex: 2 1 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 20px;
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      border: 1px solid #f5f5f5;
+    }
+    .thumb {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 12px;
+      border-radius: 8px;
+      background: #fafafa;
+      border: 1px solid transparent;
+    }
+    .thumb:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid #e8e8e8;
+      background: #fff;
+    }
+    .thumb-name {
+      font-weight: 400;
+      color: #2a2a2a;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      text-align: center;
+      letter-spacing: 0.2px;
+    }
+    .thumb img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #f0f0f0;
+      background: #fff;
+      transition: all 0.2s ease;
+    }
+    .thumb:hover img {
+      border: 1px solid #d0d0d0;
+      transform: scale(1.02);
+    }
+    .loading-placeholder {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 8px;
+    }
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.75);
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(3px);
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 32px;
+      border-radius: 16px;
+      max-width: 85vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      margin: 0 20px;
+    }
+    .modal-content img {
+      width: 100%;
+      height: auto;
+      max-width: 70vw;
+      max-height: 70vh;
+      display: block;
+      margin: 0 auto;
+      border-radius: 12px;
+      background: #fafafa;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .modal-caption {
+      margin-top: 20px;
+      color: #2a2a2a;
+      font-size: 1.1rem;
+      text-align: center;
+      font-weight: 300;
+      letter-spacing: 0.3px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-size: 1.8rem;
+      color: #999;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    .modal-close:hover {
+      color: #333;
+      background: #f5f5f5;
+    }
+    .modal-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      border: 1px solid rgba(0,0,0,0.1);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1001;
+      backdrop-filter: blur(8px);
+    }
+    .modal-nav:hover {
+      background: rgba(255,255,255,0.95);
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .modal-nav:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .modal-nav:disabled:hover {
+      background: rgba(255,255,255,0.9);
+      transform: translateY(-50%) scale(1);
+      box-shadow: none;
+    }
+    .modal-nav.prev {
+      left: 20px;
+    }
+    .modal-nav.next {
+      right: 20px;
+    }
+    .modal-counter {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      z-index: 1001;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0,0,0,0.1);
+      font-weight: 300;
+    }
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    /* Responsive improvements */
+    @media (max-width: 900px) {
+      .album-container {
+        flex-direction: column;
+        gap: 24px;
+        padding: 0 16px 32px;
+      }
+      .left-image {
+        position: static;
+        max-width: 100%;
+        width: 100%;
+        padding: 20px;
+      }
+      .right-thumbs {
+        max-width: 100%;
+        width: 100%;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 16px;
+        padding: 20px;
+      }
+      .thumb {
+        padding: 8px;
+      }
+      .thumb img {
+        width: 80px;
+        height: 80px;
+      }
+      .modal-content {
+        padding: 24px;
+        margin: 0 16px;
+        max-width: calc(100vw - 32px);
+      }
+      .modal-content img {
+        max-width: calc(100vw - 64px);
+      }
+      .modal-nav.prev {
+        left: 12px;
+      }
+      .modal-nav.next {
+        right: 12px;
+      }
+    }
+    @media (max-width: 600px) {
+      .header {
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+      .album-container {
+        padding: 0 12px 24px;
+        gap: 16px;
+      }
+      .left-image, .right-thumbs {
+        padding: 16px;
+        border-radius: 8px;
+      }
+      .right-thumbs {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 12px;
+      }
+      .thumb img {
+        width: 70px;
+        height: 70px;
+      }
+      .modal-content {
+        padding: 20px;
+        margin: 0 12px;
+        max-width: calc(100vw - 24px);
+        border-radius: 12px;
+      }
+      .modal-content img {
+        max-width: calc(100vw - 48px);
+        border-radius: 8px;
+      }
+      .modal-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+      .modal-nav.prev {
+        left: 8px;
+      }
+      .modal-nav.next {
+        right: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>7S5 Pencil Topper Album</h1>
+  </div>
+  <div class="album-container">
+    <div class="left-image">
+      <img src="7S5.png" alt="7S5 Pencil Topper Group Photo">
+      <div class="caption">7S5 Pencil Topper Group Photo</div>
+    </div>
+    <div class="right-thumbs" id="gifThumbs">
+      <!-- GIF thumbnails will be injected here -->
+    </div>
+  </div>
+  <!-- Modal for enlarged GIF -->
+  <div class="modal" id="gifModal" tabindex="-1">
+    <div class="modal-content">
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close">&times;</button>
+      <button class="modal-nav prev" id="prevBtn" aria-label="Previous">❮</button>
+      <button class="modal-nav next" id="nextBtn" aria-label="Next">❯</button>
+      <img id="modalImg" src="" alt="">
+      <div class="modal-caption" id="modalCaption"></div>
+      <div class="modal-counter" id="modalCounter"></div>
+    </div>
+  </div>
+  <script>
+    const gifs = [
+      { src: 'abdullah.gif', name: 'Abdullah' },
+      { src: 'bilal.gif', name: 'Bilal' },
+      { src: 'havivah.gif', name: 'Havivah' },
+      { src: 'ibrahim.gif', name: 'Ibrahim' },
+      { src: 'ikarus.gif', name: 'Ikarus' },
+      { src: 'isabelle.gif', name: 'Isabelle' },
+      { src: 'karar1.gif', name: 'Karar' },
+      { src: 'karar2.gif', name: 'Karar' },
+      { src: 'ksenia.gif', name: 'Ksenia' },
+      { src: 'lucia.gif', name: 'Lucia' },
+      { src: 'mudasir.gif', name: 'Mudasir' },
+      { src: 'vincent.gif', name: 'Vincent' },
+      { src: 'zhoobin.gif', name: 'Zhoobin' }
+    ];
+    
+    const thumbsEl = document.getElementById('gifThumbs');
+    const modal = document.getElementById('gifModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalCaption = document.getElementById('modalCaption');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalCounter = document.getElementById('modalCounter');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentIndex = 0;
+    
+    // Render thumbnails with loading states
+    gifs.forEach((gif, idx) => {
+      const thumb = document.createElement('div');
+      thumb.className = 'thumb fade-in';
+      thumb.tabIndex = 0;
+      thumb.setAttribute('aria-label', `View ${gif.name}'s ad`);
+      thumb.style.animationDelay = `${idx * 0.05}s`;
+      
+      const nameEl = document.createElement('div');
+      nameEl.className = 'thumb-name';
+      nameEl.textContent = gif.name;
+      
+      const imgEl = document.createElement('img');
+      imgEl.src = gif.src;
+      imgEl.alt = `${gif.name}'s Pencil Topper Ad`;
+      imgEl.loading = 'lazy';
+      
+      // Add loading placeholder
+      const placeholder = document.createElement('div');
+      placeholder.className = 'loading-placeholder';
+      
+      thumb.appendChild(nameEl);
+      thumb.appendChild(placeholder);
+      
+      imgEl.onload = () => {
+        thumb.replaceChild(imgEl, placeholder);
+      };
+      
+      imgEl.onerror = () => {
+        placeholder.style.background = '#f0f0f0';
+        placeholder.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#999;font-size:0.7rem;">Error</div>';
+      };
+      
+      thumb.addEventListener('click', () => openModal(idx));
+      thumb.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(idx);
+        }
+      });
+      
+      thumbsEl.appendChild(thumb);
+    });
+    
+    function openModal(index) {
+      currentIndex = index;
+      showCurrentGif();
+      modal.classList.add('active');
+      modal.focus();
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function showCurrentGif() {
+      const gif = gifs[currentIndex];
+      modalImg.src = gif.src;
+      modalImg.alt = `${gif.name}'s Pencil Topper Ad`;
+      modalCaption.textContent = gif.name;
+      modalCounter.textContent = `${currentIndex + 1} of ${gifs.length}`;
+      
+      // Update navigation buttons
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === gifs.length - 1;
+    }
+    
+    function goToPrevious() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showCurrentGif();
+      }
+    }
+    
+    function goToNext() {
+      if (currentIndex < gifs.length - 1) {
+        currentIndex++;
+        showCurrentGif();
+      }
+    }
+    
+    function closeModal() {
+      modal.classList.remove('active');
+      modalImg.src = '';
+      modalImg.alt = '';
+      // Restore body scroll
+      document.body.style.overflow = '';
+    }
+    
+    // Event listeners
+    modalCloseBtn.addEventListener('click', closeModal);
+    prevBtn.addEventListener('click', goToPrevious);
+    nextBtn.addEventListener('click', goToNext);
+    
+    // Close modal on click outside content
+    modal.addEventListener('mousedown', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (modal.classList.contains('active')) {
+        if (e.key === 'Escape') {
+          closeModal();
+        } else if (e.key === 'ArrowLeft') {
+          goToPrevious();
+        } else if (e.key === 'ArrowRight') {
+          goToNext();
+        }
+      }
+    });
+    
+    // Preload next/previous images for smoother navigation
+    function preloadImages() {
+      gifs.forEach(gif => {
+        const img = new Image();
+        img.src = gif.src;
+      });
+    }
+    
+    // Start preloading after page load
+    window.addEventListener('load', preloadImages);
+  </script>
+</body>
+</html>
