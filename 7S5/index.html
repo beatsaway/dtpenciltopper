@@ -19,12 +19,12 @@
     }
     .header {
       background: #fff;
-      padding: 20px 16px;
-      margin-bottom: 24px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
       border-bottom: 1px solid #f0f0f0;
     }
     .header h1 {
-      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
       font-weight: 300;
       text-align: center;
       color: #2a2a2a;
@@ -34,31 +34,31 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      gap: 40px;
-      max-width: 1200px;
+      gap: 20px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 0 20px 40px;
+      padding: 0 12px 20px;
     }
     .left-image {
-      flex: 1 1 450px;
-      max-width: 520px;
+      flex: 1 1 500px;
+      max-width: 650px;
       display: flex;
       flex-direction: column;
       align-items: center;
       background: #fff;
-      padding: 24px;
-      border-radius: 12px;
+      padding: 16px;
+      border-radius: 8px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.02);
       border: 1px solid #f5f5f5;
       position: sticky;
-      top: 20px;
+      top: 10px;
     }
     .left-image img {
       width: 100%;
-      max-width: 480px;
+      max-width: 100%;
       height: auto;
       object-fit: contain;
-      border-radius: 8px;
+      border-radius: 6px;
       background: #fff;
       transition: transform 0.2s ease;
     }
@@ -66,20 +66,20 @@
       transform: scale(1.01);
     }
     .left-image .caption {
-      margin-top: 16px;
-      font-size: 0.95rem;
+      margin-top: 12px;
+      font-size: 0.9rem;
       color: #666;
       text-align: center;
       font-weight: 300;
     }
     .right-thumbs {
-      flex: 2 1 0;
+      flex: 1 1 0;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
       background: #fff;
-      padding: 28px;
-      border-radius: 12px;
+      padding: 16px;
+      border-radius: 8px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.02);
       border: 1px solid #f5f5f5;
     }
@@ -89,8 +89,8 @@
       align-items: center;
       cursor: pointer;
       transition: all 0.2s ease;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 8px;
+      border-radius: 6px;
       background: #fafafa;
       border: 1px solid transparent;
     }
@@ -103,16 +103,16 @@
     .thumb-name {
       font-weight: 400;
       color: #2a2a2a;
-      font-size: 0.9rem;
-      margin-bottom: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
       text-align: center;
       letter-spacing: 0.2px;
     }
     .thumb img {
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 6px;
       border: 1px solid #f0f0f0;
       background: #fff;
       transition: all 0.2s ease;
@@ -122,12 +122,12 @@
       transform: scale(1.02);
     }
     .loading-placeholder {
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
       background-size: 200% 100%;
       animation: loading 1.5s infinite;
-      border-radius: 8px;
+      border-radius: 6px;
     }
     @keyframes loading {
       0% { background-position: 200% 0; }
@@ -150,32 +150,32 @@
     }
     .modal-content {
       background: #fff;
-      padding: 32px;
-      border-radius: 16px;
-      max-width: 85vw;
-      max-height: 90vh;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 90vw;
+      max-height: 95vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
       box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-      margin: 0 20px;
+      margin: 0 10px;
     }
     .modal-content img {
       width: 100%;
       height: auto;
-      max-width: 70vw;
-      max-height: 70vh;
+      max-width: 85vw;
+      max-height: 85vh;
       display: block;
       margin: 0 auto;
-      border-radius: 12px;
+      border-radius: 8px;
       background: #fafafa;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
     .modal-caption {
-      margin-top: 20px;
+      margin-top: 12px;
       color: #2a2a2a;
-      font-size: 1.1rem;
+      font-size: 1rem;
       text-align: center;
       font-weight: 300;
       letter-spacing: 0.3px;
@@ -266,85 +266,87 @@
     @media (max-width: 900px) {
       .album-container {
         flex-direction: column;
-        gap: 24px;
-        padding: 0 16px 32px;
+        gap: 16px;
+        padding: 0 10px 20px;
       }
       .left-image {
         position: static;
         max-width: 100%;
         width: 100%;
-        padding: 20px;
+        padding: 12px;
       }
       .right-thumbs {
         max-width: 100%;
         width: 100%;
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-        gap: 16px;
-        padding: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+        padding: 12px;
       }
       .thumb {
-        padding: 8px;
+        padding: 6px;
       }
       .thumb img {
-        width: 80px;
-        height: 80px;
+        width: 75px;
+        height: 75px;
       }
       .modal-content {
-        padding: 24px;
-        margin: 0 16px;
-        max-width: calc(100vw - 32px);
+        padding: 16px;
+        margin: 0 10px;
+        max-width: calc(100vw - 20px);
       }
       .modal-content img {
-        max-width: calc(100vw - 64px);
-      }
-      .modal-nav.prev {
-        left: 12px;
-      }
-      .modal-nav.next {
-        right: 12px;
-      }
-    }
-    @media (max-width: 600px) {
-      .header {
-        padding: 16px;
-        margin-bottom: 16px;
-      }
-      .album-container {
-        padding: 0 12px 24px;
-        gap: 16px;
-      }
-      .left-image, .right-thumbs {
-        padding: 16px;
-        border-radius: 8px;
-      }
-      .right-thumbs {
-        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-        gap: 12px;
-      }
-      .thumb img {
-        width: 70px;
-        height: 70px;
-      }
-      .modal-content {
-        padding: 20px;
-        margin: 0 12px;
-        max-width: calc(100vw - 24px);
-        border-radius: 12px;
-      }
-      .modal-content img {
-        max-width: calc(100vw - 48px);
-        border-radius: 8px;
-      }
-      .modal-nav {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
+        max-width: calc(100vw - 40px);
+        max-height: 80vh;
       }
       .modal-nav.prev {
         left: 8px;
       }
       .modal-nav.next {
         right: 8px;
+      }
+    }
+    @media (max-width: 600px) {
+      .header {
+        padding: 10px;
+        margin-bottom: 12px;
+      }
+      .album-container {
+        padding: 0 8px 16px;
+        gap: 12px;
+      }
+      .left-image, .right-thumbs {
+        padding: 10px;
+        border-radius: 6px;
+      }
+      .right-thumbs {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 8px;
+      }
+      .thumb img {
+        width: 65px;
+        height: 65px;
+      }
+      .modal-content {
+        padding: 12px;
+        margin: 0 8px;
+        max-width: calc(100vw - 16px);
+        border-radius: 8px;
+      }
+      .modal-content img {
+        max-width: calc(100vw - 32px);
+        max-height: 85vh;
+        border-radius: 6px;
+      }
+      .modal-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+      }
+      .modal-nav.prev {
+        left: 6px;
+      }
+      .modal-nav.next {
+        right: 6px;
       }
     }
   </style>
@@ -417,7 +419,6 @@
       imgEl.alt = `${gif.name}'s Pencil Topper Ad`;
       imgEl.loading = 'lazy';
       
-      // Add loading placeholder
       const placeholder = document.createElement('div');
       placeholder.className = 'loading-placeholder';
       
